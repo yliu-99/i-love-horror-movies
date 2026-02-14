@@ -58,9 +58,10 @@ app.get("/debug/tables", (req, res) => {
 // Register
 app.post("/auth/register", async (req, res) => {
     
-    let {username, password} = req.body;
+    let {username, email, password} = req.body;
 
-    username = username?.trim().toLowerCase();
+    username = typeof username === "string" ? username.trim() : "";
+    email = typeof email === "string" ? email.trim().toLowerCase() : "";
 
 
     // Validation
@@ -68,24 +69,24 @@ app.post("/auth/register", async (req, res) => {
         return res.status(400).json({ error: "password must be a string" });
     }
 
-    if (!username || !password) {
-        return res.status(400).json({ error: "username and password are required" });
+    if (!username || !email || !password) {
+        return res.status(400).json({ error: "username, email, and password are required" });
     }
 
     // Password Hash
     const passwordHash = await bcrypt.hash(password, 10);
 
     // Upload into Database
-    const sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)";
-    db.run(sql, [username, passwordHash], function (err) {
+    const sql = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+    db.run(sql, [username, email, passwordHash], function (err) {
         if (err) {
             if (err.message.includes("UNIQUE")) {
-                return res.status(409).json({ error: "username already exists" });
+                return res.status(409).json({ error: "email already exists" });
             }
             return res.status(500).json({ error: err.message });
         }
 
-        res.status(201).json({ id: this.lastID, username });
+        res.status(201).json({ id: this.lastID, username, email });
 
     });
 
@@ -93,21 +94,21 @@ app.post("/auth/register", async (req, res) => {
 
 // Create Login
 app.post("/auth/login", (req, res) => {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
 
-    username = username?.trim().toLowerCase();
+    email = typeof email === "string" ? email.trim().toLowerCase() : "";
 
     if (typeof password !== "string") {
         return res.status(400).json({ error: "password must be a string" });
     }
 
-    if (!username || !password) {
-        return res.status(400).json({ error: "username and password are required" });
+    if (!email || !password) {
+        return res.status(400).json({ error: "email and password are required" });
     }
 
     db.get(
-        "SELECT id, username, password_hash FROM users WHERE username = ?",
-        [username],
+        "SELECT id, username, email, password_hash FROM users WHERE email = ?",
+        [email],
         async (err, user) => {
             if (err) return res.status(500).json({ error: err.message });
 
@@ -136,7 +137,7 @@ app.get("/auth/me", (req, res) => {
     }
 
     db.get(
-        "SELECT id, username, created_at FROM users WHERE id = ?",
+        "SELECT id, username, email, created_at FROM users WHERE id = ?",
         [userId],
         (err, user) => {
             if (err) return res.status(500).json({ error: err.message });

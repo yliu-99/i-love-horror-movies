@@ -9,7 +9,18 @@ import SavedMoviesPage from './pages/SavedMoviesPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 
-console.log("testing app")
+import { AuthProvider, useAuth } from './auth/AuthContext.jsx'
+import ProtectedRoute from "./auth/ProtectedRoute.jsx"
+
+// Redirect logged-in users straight to home
+function RedirectIfAuthed({ children }) {
+  const { user, loading } = useAuth();
+
+  if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
+  if (user) return <Navigate to="/home" replace />;
+
+  return children;
+}
 
 // Stores current location
 function AppLayout() {
@@ -31,13 +42,48 @@ function AppLayout() {
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Auth */}
-        <Route path="/login" element={<LoginPage/>} />
-        <Route path="/register" element={<RegisterPage/>} />
+        <Route 
+          path="/login" 
+          element={
+            <RedirectIfAuthed>
+              <LoginPage/>
+            </RedirectIfAuthed>
+            } 
+        />
+        <Route 
+          path="/register" 
+          element={
+            <RedirectIfAuthed>
+              <RegisterPage/>
+            </RedirectIfAuthed>
+            } 
+          />
 
         {/* App */}
-        <Route path="/home" element={<HomePage/>} />
-        <Route path="/movie/:id" element={<DetailPage/>} />
-        <Route path="/saved" element={<SavedMoviesPage/>} />
+        <Route 
+          path="/home" 
+          element={
+            <ProtectedRoute>
+              <HomePage/>
+            </ProtectedRoute>
+            } 
+          />
+        <Route 
+          path="/movie/:id" 
+          element={
+            <ProtectedRoute>
+              <DetailPage/>
+            </ProtectedRoute>
+            } 
+          />
+        <Route 
+          path="/saved" 
+          element={
+            <ProtectedRoute>
+              <SavedMoviesPage/>
+            </ProtectedRoute>
+          } 
+        />
 
         {/* Catch */}
         <Route path="*" element={<Navigate to="/login" replace />} />
@@ -54,7 +100,9 @@ function AppLayout() {
 function App() {
   return(
     <Router>
-      <AppLayout />
+      <AuthProvider>
+        <AppLayout />
+      </AuthProvider>
     </Router>
   );
 }
