@@ -69,6 +69,19 @@
   font-size: 1.2rem;
 }
 
+.nav-user {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav-user-name {
+  color: #ffffff;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .nav-container {
     padding: 0 0.5rem;

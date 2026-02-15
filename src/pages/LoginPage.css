@@ -1,0 +1,166 @@
+/* Full-screen black background (match Register) */
+.login-page {
+    min-height: 100vh;
+    background: #000;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+/* Step 2 background — keep it the same as Register for consistency */
+.login-page--step2 {
+    background: #000;
+}
+
+/* Centered card (match Register) */
+.login-card {
+    width: min(520px, 100%);
+    display: grid;
+    gap: 16px;
+    text-align: center;
+}
+
+/* Title + body (match Register) */
+.login-title {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 130%;
+    margin: 0;
+    color: #fff;
+}
+
+.login-body {
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Error (match Register) */
+.login-error {
+    margin: 0;
+    color: #ff4d4f;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Step 1 row: email + button side by side */
+.login-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+/* Step 2 stack: inputs + button */
+.login-stack {
+    display: grid;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Inputs (match Register input exactly) */
+.login-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    outline: none;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+}
+
+.login-input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.login-input:focus {
+    border-color: rgba(229, 9, 20, 0.9);
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.25);
+}
+
+/* Button (match Register button exactly) */
+.login-button {
+    height: 44px;
+    border: none;
+    border-radius: 8px;
+    background: #e50914;
+    color: #fff;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.04s ease, background-color 0.2s ease;
+}
+
+.login-button:hover {
+    background: #ff0a16;
+}
+
+.login-button:active {
+    transform: translateY(1px);
+}
+
+.login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Bottom link (match Register secondary exactly) */
+.login-secondary {
+    margin-top: 6px;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.login-secondary a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.login-secondary a:hover {
+    color: #e50914;
+}
+
+/* Optional utility you had before — keep it, but style consistently */
+.login-email-line {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.login-linkbutton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.login-linkbutton:hover {
+    color: #e50914;
+}
+
+/* Small screens (match Register breakpoint behavior) */
+@media (max-width: 480px) {
+    .login-title {
+        font-size: 36px;
+    }
+}
