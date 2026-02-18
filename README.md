@@ -17,9 +17,9 @@ Before running this project, make sure you have the following installed:
 
 
 Open your terminal/command prompt and navigate to the project directory:
-cd path/to/i-love-horror-movies
-npm install
-npm run dev
-there are some dependancy errors that do not affect functionality during npm install (ignore for now)
+- cd path/to/i-love-horror-movies
+- npm install
+- npm run dev
+- there are some dependancy errors that do not affect functionality during npm install (ignore for now)
 
 
