@@ -20,8 +20,6 @@ Open your terminal/command prompt and navigate to the project directory:
 cd path/to/i-love-horror-movies
 npm install
 npm run dev
+there are some dependancy errors that do not affect functionality during npm install (ignore for now)
 
-Challenges:
-needed to sign up to get API key > solution: stopped whining and signed up
-syntax is still confusing sometimes > solution: got AI to explain but brain can't compute because of exhaustion
-feeling really burnt out at the end of term from the workload and consecutive nights of 0-less than 4hrs of sleep > solution: a lot a lot I mean A LOT of matcha (my supply of matcha powders has been depleted), and some kitty breaks 
+
